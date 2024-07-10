@@ -18,8 +18,8 @@ module.exports = {
     },
     extend: {
       colors: {
-        "primary-green": "#84a18b",
-        hover: "#487151",
+        "primary-green": "#487151",
+        hover: "#84a18b",
         "secondary-orange": "#f0a994",
         "primary-blue": "#1b3048",
         border: "hsl(var(--border))",

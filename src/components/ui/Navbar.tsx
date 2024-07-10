@@ -10,7 +10,7 @@ const Navbar = () => {
             isPending
               ? "font-bold text-white"
               : isActive
-              ? "bg-primary-green font-bold text-primary-blue"
+              ? "font-bold text-secondary-orange"
               : "font-bold text-white"
           }
         >
@@ -24,7 +24,7 @@ const Navbar = () => {
             isPending
               ? "font-bold text-white"
               : isActive
-              ? "bg-primary-green font-bold text-primary-blue"
+              ? "font-bold text-secondary-orange"
               : "font-bold text-white"
           }
         >
@@ -38,7 +38,7 @@ const Navbar = () => {
             isPending
               ? "font-bold text-white"
               : isActive
-              ? "bg-primary-green font-bold text-primary-blue"
+              ? "font-bold text-secondary-orange"
               : "font-bold text-white"
           }
         >
@@ -49,7 +49,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar absolute top-0 max-w-screen-2xl mx-auto">
+    <div className="navbar absolute top-0 max-w-screen-2xl mx-auto z-10">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -125,7 +125,7 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          <div className="dropdown dropdown-end">
+          <div className="dropdown dropdown-end ml-2">
             <div
               tabIndex={0}
               role="button"
