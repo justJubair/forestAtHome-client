@@ -4,10 +4,10 @@ const Testimonials = () => {
   return (
     <div>
       <div className="mt-20 mb-6">
-        <SectionTitle>Testimonials</SectionTitle>
+        <SectionTitle>Our Happy Clients</SectionTitle>
       </div>
 
-      <div className="grid grid-cols-4 gap-4 max-w-6xl mx-auto">
+      <div className="grid grid-cols-4 gap-4 max-w-5xl mx-auto">
         <img
           className="col-span-2 row-span-2 rounded-tl-2xl"
           src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=600"

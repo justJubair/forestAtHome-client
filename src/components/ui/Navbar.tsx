@@ -79,8 +79,8 @@ const Navbar = () => {
             {navLinks}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl oleo-script-regular text-white">
-          ForestAtHome
+        <a className="pl-3 text-xl oleo-script-regular text-white">
+          Forest<span className="text-secondary-orange">At</span>Home
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">

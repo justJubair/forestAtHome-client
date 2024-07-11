@@ -1,7 +1,18 @@
 import CustomButton from "@/components/ui/CustomButton";
 import Rating from "react-rating";
 
-const ProductCard = ({ product }) => {
+type IProduct = {
+  category: string;
+  title: string;
+  price: number;
+  quantity: number;
+  description: string;
+  shortDescription: string;
+  rating: number;
+  image: string;
+};
+
+const ProductCard = ({ product }: { product: IProduct }) => {
   return (
     <div className="card card-compact bg-base-100 shadow-xl">
       <figure>
