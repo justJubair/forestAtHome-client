@@ -8,10 +8,10 @@ const Navbar = () => {
           to="/"
           className={({ isActive, isPending }) =>
             isPending
-              ? "font-bold text-white"
+              ? "font-bold text-black lg:text-white"
               : isActive
               ? "font-bold text-secondary-orange"
-              : "font-bold text-white"
+              : "font-bold text-black lg:text-white"
           }
         >
           Home
@@ -22,10 +22,10 @@ const Navbar = () => {
           to="/products"
           className={({ isActive, isPending }) =>
             isPending
-              ? "font-bold text-white"
+              ? "font-bold text-black lg:text-white"
               : isActive
               ? "font-bold text-secondary-orange"
-              : "font-bold text-white"
+              : "font-bold text-black lg:text-white"
           }
         >
           Products
@@ -36,10 +36,10 @@ const Navbar = () => {
           to="/Management"
           className={({ isActive, isPending }) =>
             isPending
-              ? "font-bold text-white"
+              ? "font-bold text-blac lg:text-white"
               : isActive
               ? "font-bold text-secondary-orange"
-              : "font-bold text-white"
+              : "font-bold text-black lg:text-white"
           }
         >
           Management
@@ -52,7 +52,11 @@ const Navbar = () => {
     <div className="navbar absolute top-0 max-w-screen-2xl mx-auto z-10">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost text-white lg:hidden"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -70,7 +74,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow "
           >
             {navLinks}
           </ul>
@@ -96,7 +100,7 @@ const Navbar = () => {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
-                  fill="none"
+                  fill="white"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
@@ -133,8 +137,8 @@ const Navbar = () => {
             >
               <div className="w-10 rounded-full">
                 <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://images.unsplash.com/photo-1628563694622-5a76957fd09c?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="user profile photo"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThbvn2Df8FRqHl7NdbkGn2HyCZvZw3QG7DHw&s"
                 />
               </div>
             </div>
