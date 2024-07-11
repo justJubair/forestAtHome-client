@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="footer footer-center bg-primary-green text-primary-content p-10 -mt-16">
+    <footer className="footer footer-center bg-primary-green text-primary-content p-10 mt-0 md:-mt-4 lg:-mt-16">
       <aside>
         <p className="oleo-script-regular font-extrabold text-2xl">
           Forest<span className="text-secondary-orange">At</span>Home

@@ -1,5 +1,24 @@
 import SectionTitle from "@/components/ui/SectionTitle";
 import ProductCard from "./ProductCard";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 //   {
 //     category: "Indoor Plants",
@@ -274,16 +293,54 @@ const dummyProducts = [
 
 const ProductCards = () => {
   return (
-    <div>
+    <div className=" max-w-6xl mx-auto">
       <div className="mt-16 mb-6">
         <SectionTitle>Our Handpicked</SectionTitle>
       </div>
-
-      <div className="grid grid-cols-1 px-4 lg:px-0 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+      <div className="mb-6 flex justify-between items-center">
+        <Input type="text" placeholder="Search Products" className="max-w-96" />
+        <Select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Filter by Price" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Sort by price</SelectLabel>
+              <SelectItem value="highest">Highest</SelectItem>
+              <SelectItem value="lowest">Lowest</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="grid grid-cols-1 px-4 lg:px-0 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {dummyProducts?.slice(0, 6).map((product, idx) => (
           <ProductCard key={idx} product={product} />
         ))}
       </div>
+      <Pagination className="mt-10">
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">1</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#" isActive>
+              2
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">3</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext href="#" />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 };

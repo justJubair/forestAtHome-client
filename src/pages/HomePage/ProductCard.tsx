@@ -1,5 +1,7 @@
+import { Button } from "@/components/ui/button";
 import CustomButton from "@/components/ui/CustomButton";
 import Rating from "react-rating";
+import { Link } from "react-router-dom";
 
 type IProduct = {
   category: string;
@@ -14,7 +16,7 @@ type IProduct = {
 
 const ProductCard = ({ product }: { product: IProduct }) => {
   return (
-    <div className="card card-compact bg-base-100 shadow-xl">
+    <div className="card card-compact bg-base-100 shadow-xl hover:cursor-pointer">
       <figure>
         <img
           className="w-full h-64 object-cover"
@@ -62,7 +64,12 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           }
           fractions={2}
         />
-        <div className="card-actions justify-end">
+        <div className="card-actions justify-end z-50">
+          <Link to="/product/12">
+            <Button className="text-primary-green bg-white border-primary-green border-spacing-3 border hover:text-secondary-orange hover:bg-white hover:border-secondary-orange">
+              Details
+            </Button>
+          </Link>
           <CustomButton>Add To Cart</CustomButton>
         </div>
       </div>

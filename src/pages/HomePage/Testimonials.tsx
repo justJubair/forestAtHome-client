@@ -7,7 +7,7 @@ const Testimonials = () => {
         <SectionTitle>Our Happy Clients</SectionTitle>
       </div>
 
-      <div className="grid grid-cols-4 gap-4 max-w-5xl mx-auto">
+      <div className="grid grid-cols-4 gap-4 max-w-5xl mx-auto px-4 lg:px-0">
         <img
           className="col-span-2 row-span-2 rounded-tl-2xl"
           src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=600"

@@ -23,7 +23,7 @@ const dummyCategories = [
 const Categories = () => {
   return (
     <div>
-      <div className="mt-14 mb-6">
+      <div className="mt-20 mb-6">
         <SectionTitle>Our Categories</SectionTitle>
       </div>
 
