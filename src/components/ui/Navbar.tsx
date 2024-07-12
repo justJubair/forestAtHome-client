@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const navLinks = (
@@ -6,10 +6,8 @@ const Navbar = () => {
       <li>
         <NavLink
           to="/"
-          className={({ isActive, isPending }) =>
-            isPending
-              ? "font-bold text-black lg:text-white"
-              : isActive
+          className={({ isActive }) =>
+            isActive
               ? "font-bold text-secondary-orange"
               : "font-bold text-black lg:text-white"
           }
@@ -20,10 +18,8 @@ const Navbar = () => {
       <li>
         <NavLink
           to="/products"
-          className={({ isActive, isPending }) =>
-            isPending
-              ? "font-bold text-black lg:text-white"
-              : isActive
+          className={({ isActive }) =>
+            isActive
               ? "font-bold text-secondary-orange"
               : "font-bold text-black lg:text-white"
           }
@@ -122,9 +118,9 @@ const Navbar = () => {
                 <span className="text-lg font-bold">8 Items</span>
                 <span className="text-info">Subtotal: $999</span>
                 <div className="card-actions">
-                  <button className="btn btn-primary btn-block">
+                  <Link to="/checkout" className="btn btn-primary btn-block">
                     View cart
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
