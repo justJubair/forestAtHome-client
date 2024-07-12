@@ -1,20 +1,10 @@
 import { Button } from "@/components/ui/button";
 import CustomButton from "@/components/ui/CustomButton";
+import { TProduct } from "@/types";
 import Rating from "react-rating";
 import { Link } from "react-router-dom";
 
-type IProduct = {
-  category: string;
-  title: string;
-  price: number;
-  quantity: number;
-  description: string;
-  shortDescription: string;
-  rating: number;
-  image: string;
-};
-
-const ProductCard = ({ product }: { product: IProduct }) => {
+const ProductCard = ({ product }: { product: TProduct }) => {
   return (
     <div className="card card-compact bg-base-100 shadow-xl hover:cursor-pointer">
       <figure>

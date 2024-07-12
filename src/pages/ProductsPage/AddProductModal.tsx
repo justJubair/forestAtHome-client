@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -20,14 +21,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { useAddProductMutation } from "@/redux/features/product/productApi";
 import { useState } from "react";
 import Rating from "react-rating";
 
 const AddProductModal = () => {
   const [rating, setRating] = useState(0);
   const [category, setCategory] = useState("");
-
-  const handleProductAdd = (e) => {
+  const [addProduct] = useAddProductMutation();
+  const { toast } = useToast();
+  const handleProductAdd = async (e) => {
     e.preventDefault();
     const form = e.target;
     const title = form.name.value;
@@ -44,7 +48,14 @@ const AddProductModal = () => {
       rating,
       category,
     };
-    console.log(newProduct);
+    const res = await addProduct(newProduct).unwrap();
+
+    if (res.success) {
+      toast({
+        title: `${title}`,
+        description: "New Product Created Successfully",
+      });
+    }
   };
   return (
     <Dialog>
@@ -178,7 +189,9 @@ const AddProductModal = () => {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Add</Button>
+            <DialogClose asChild>
+              <Button type="submit">Add</Button>
+            </DialogClose>
           </DialogFooter>
         </form>
       </DialogContent>

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -20,14 +21,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { useUpdateProductMutation } from "@/redux/features/product/productApi";
+import { TProduct } from "@/types";
 import { useState } from "react";
 import Rating from "react-rating";
 
-const UpdateProductModal = () => {
-  const [rating, setRating] = useState(0);
-  const [category, setCategory] = useState("");
-
-  const handleProductAdd = (e) => {
+const UpdateProductModal = ({ product }: { product: TProduct }) => {
+  const [rating, setRating] = useState(product.rating);
+  const [category, setCategory] = useState(product.category);
+  const [updateProduct] = useUpdateProductMutation();
+  const { toast } = useToast();
+  const handleProductAdd = async (e) => {
     e.preventDefault();
     const form = e.target;
     const title = form.name.value;
@@ -44,7 +49,17 @@ const UpdateProductModal = () => {
       rating,
       category,
     };
-    console.log(newProduct);
+    const options = {
+      _id: product._id,
+      data: newProduct,
+    };
+    const res = await updateProduct(options).unwrap();
+    if (res.success) {
+      toast({
+        title: `${product.title}`,
+        description: "Product Updated Successfully",
+      });
+    }
   };
   return (
     <Dialog>
@@ -81,14 +96,20 @@ const UpdateProductModal = () => {
                 <Label htmlFor="title" className="text-right">
                   Title
                 </Label>
-                <Input type="text" name="name" className="col-span-3" />
+                <Input
+                  defaultValue={product.title}
+                  type="text"
+                  name="name"
+                  className="col-span-3"
+                />
               </div>
               <div className="space-y-1">
                 <Label htmlFor="price" className="text-right">
                   Price
                 </Label>
                 <Input
-                  type="number "
+                  defaultValue={product.price}
+                  type="number"
                   name="price"
                   id="price"
                   className="col-span-3"
@@ -104,12 +125,15 @@ const UpdateProductModal = () => {
                   type="number"
                   id="quantity"
                   name="quantity"
-                  defaultValue="@peduarte"
+                  defaultValue={product.quantity}
                   className="col-span-3"
                 />
               </div>
 
-              <Select onValueChange={(value) => setCategory(value)}>
+              <Select
+                defaultValue={product.category}
+                onValueChange={(value) => setCategory(value)}
+              >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Choose a category" />
                 </SelectTrigger>
@@ -136,6 +160,7 @@ const UpdateProductModal = () => {
                 Description
               </Label>
               <Textarea
+                defaultValue={product.description}
                 name="description"
                 placeholder="Write product description."
               />
@@ -145,6 +170,7 @@ const UpdateProductModal = () => {
                 Ratings
               </Label>
               <Rating
+                initialRating={product.rating}
                 onClick={(value) => setRating(value)}
                 emptySymbol={
                   <svg
@@ -186,6 +212,7 @@ const UpdateProductModal = () => {
                 Image
               </Label>
               <Input
+                defaultValue={product.image}
                 name="image"
                 id="title"
                 placeholder="Direct Image link"
@@ -194,7 +221,9 @@ const UpdateProductModal = () => {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <DialogClose asChild>
+              <Button type="submit">Save changes</Button>
+            </DialogClose>
           </DialogFooter>
         </form>
       </DialogContent>
