@@ -55,7 +55,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
           fractions={2}
         />
         <div className="card-actions justify-end z-50">
-          <Link to="/product/12">
+          <Link to={`/product/${product?._id}`}>
             <Button className="text-primary-green bg-white border-primary-green border-spacing-3 border hover:text-secondary-orange hover:bg-white hover:border-secondary-orange">
               Details
             </Button>
