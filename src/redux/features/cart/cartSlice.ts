@@ -1,19 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { TProduct } from "@/types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type TCartState = {
-  item: number;
+type TinitailState = {
+  products: TProduct[];
 };
 
-const initialState: TCartState = {
-  item: 0,
+const initialState: TinitailState = {
+  products: [],
 };
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (state) => {
-      state.item = state.item++;
+    addToCart: (state, actions: PayloadAction<TProduct>) => {
+      state.products.push({ ...actions.payload });
     },
   },
 });

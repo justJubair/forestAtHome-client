@@ -1,11 +1,14 @@
 import CustomButton from "@/components/ui/CustomButton";
+import { addToCart } from "@/redux/features/cart/cartSlice";
 import { useGetSingleProductQuery } from "@/redux/features/product/productApi";
+import { useAppDispatch } from "@/redux/hooks";
 
 import { useParams } from "react-router-dom";
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetSingleProductQuery(id ? id : null);
+  const dispatch = useAppDispatch();
 
   if (isLoading) {
     return (
@@ -34,7 +37,7 @@ const ProductDetailsPage = () => {
             <p className="text-sm mt-1">{data.data.description}</p>
             <p className="font-bold mt-3 text-xl">${data.data.price}</p>
           </div>
-          <div>
+          <div onClick={() => dispatch(addToCart(data.data))}>
             <CustomButton>Add To Cart</CustomButton>
           </div>
         </div>

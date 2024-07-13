@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
 import CustomButton from "@/components/ui/CustomButton";
+import { addToCart } from "@/redux/features/cart/cartSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { TProduct } from "@/types";
 import Rating from "react-rating";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }: { product: TProduct }) => {
+  const dispatch = useAppDispatch();
   return (
     <div className="card card-compact bg-base-100 shadow-xl hover:cursor-pointer">
       <figure>
@@ -60,7 +63,9 @@ const ProductCard = ({ product }: { product: TProduct }) => {
               Details
             </Button>
           </Link>
-          <CustomButton>Add To Cart</CustomButton>
+          <div onClick={() => dispatch(addToCart(product))}>
+            <CustomButton>Add To Cart</CustomButton>
+          </div>
         </div>
       </div>
     </div>

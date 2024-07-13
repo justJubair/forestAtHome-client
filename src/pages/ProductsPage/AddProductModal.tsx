@@ -52,6 +52,7 @@ const AddProductModal = () => {
 
     if (res.success) {
       toast({
+        duration: 1000,
         title: `${title}`,
         description: "New Product Created Successfully",
       });

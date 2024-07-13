@@ -1,66 +1,120 @@
-import CustomButton from "@/components/ui/CustomButton";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+import { useCreateOrderMutation } from "@/redux/features/cart/cartApi";
+import { useAppSelector } from "@/redux/hooks";
+// import { TProduct } from "@/types";
 
 const CheckoutPage = () => {
+  const { products } = useAppSelector((state) => state.cart);
+  const [createOrder] = useCreateOrderMutation();
+  const { toast } = useToast();
+  const totalPrice = products.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.price;
+  }, 0);
+
+  const productMap = {};
+
+  products.forEach((product) => {
+    if (productMap[product._id]) {
+      productMap[product._id].buyingQuantity += 1;
+    } else {
+      productMap[product._id] = { ...product, buyingQuantity: 1 };
+    }
+  });
+
+  const uniqueCartProducts = Object.values(productMap);
+  const handleOrder = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const phone = form.phone.value;
+    const address = form.address.value;
+
+    const newOrder = {
+      name,
+      phone,
+      address,
+      products: uniqueCartProducts,
+    };
+    const res = await createOrder(newOrder).unwrap();
+    if (res.success) {
+      toast({
+        duration: 1000,
+        title: `Thanks ${name}`,
+        description: "Order is confirmed",
+      });
+      form.reset();
+    }
+  };
   return (
     <div>
       {/* navbar space */}
       <div className="w-full h-16 bg-black"></div>
 
-      <div className="flex flex-col items-center justify-center px-4 mt-10 mb-28 gap-10 md:flex-row md:items-start ">
+      <div className="flex flex-col-reverse items-center justify-center px-4 mt-20 mb-32 gap-10 md:flex-row md:items-start ">
         <div>
-          <img
-            className="md:size-80 lg:size-96 rounded-l-xl"
-            src="https://images.pexels.com/photos/26839104/pexels-photo-26839104/free-photo-of-cactus-and-lantern-around-wooden-door.jpeg?auto=compress&cs=tinysrgb&w=600"
-            alt=""
-          />
-          <h3 className="text-3xl text-center mt-2 oleo-script-regular">
-            Thanks for your order
-          </h3>
+          <form onSubmit={handleOrder} className="w-full">
+            <Label htmlFor="quantity" className="text-right">
+              Name
+            </Label>
+            <Input
+              type="text"
+              id="name"
+              name="name"
+              className="min-w-80 lg:min-w-96 mb-3"
+            />
+            <Label htmlFor="phone" className="text-right">
+              Phone Number
+            </Label>
+            <Input
+              type="text"
+              id="phone"
+              name="phone"
+              className="lg:min-w-96 mb-3"
+            />
+            <Label htmlFor="address" className="text-right">
+              Address
+            </Label>
+            <Input
+              type="text"
+              id="address"
+              name="address"
+              className="lg:min-w-96"
+            />
+            <Button
+              type="submit"
+              className="bg-primary-green mt-4 hover:bg-hover hover:text-black"
+            >
+              Order Confirm
+            </Button>
+          </form>
         </div>
         <div>
           <div className="bg-gray-100 min-w-96 flex flex-col h-[330px] overflow-y-scroll  gap-4 px-4 pt-6 pb-4 rounded-lg">
-            {/* row */}
-            <div className="flex flex-col bg-white  px-4 py-2 rounded-xl">
-              <div className="flex items-center gap-2">
-                <img
-                  className="size-14 object-cover rounded-2xl"
-                  src="https://images.pexels.com/photos/46216/sunflower-flowers-bright-yellow-46216.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt=""
-                />
-                <p className="font-medium">Sunflower</p>
+            {uniqueCartProducts.map((product, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col bg-white  px-4 py-2 rounded-xl"
+              >
+                <div className="flex items-center gap-2">
+                  <img
+                    className="size-14 object-cover rounded-2xl"
+                    src={product.image}
+                    alt=""
+                  />
+                  <p className="font-medium">{product.title}</p>
+                </div>
+                <p className="text-sm mt-2">Category: {product.category}</p>
+                <p className="font-medium text-sm">
+                  Qty: {product.buyingQuantity}
+                </p>
               </div>
-              <p className="font-medium mt-2">Category: Indoor Plants</p>
-              <p className="font-medium">Qty: 0</p>
-            </div>
-            {/* row */}
-            <div className="flex flex-col bg-white  px-4 py-2 rounded-xl">
-              <div className="flex items-center gap-2">
-                <img
-                  className="size-14 object-cover rounded-2xl"
-                  src="https://images.pexels.com/photos/46216/sunflower-flowers-bright-yellow-46216.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt=""
-                />
-                <p className="font-medium">Sunflower</p>
-              </div>
-              <p className="font-medium mt-2">Category: Indoor Plants</p>
-              <p className="font-medium">Qty: 0</p>
-            </div>
-            {/* row */}
-            <div className="flex flex-col bg-white  px-4 py-2 rounded-xl">
-              <div className="flex items-center gap-2">
-                <img
-                  className="size-14 object-cover rounded-2xl"
-                  src="https://images.pexels.com/photos/46216/sunflower-flowers-bright-yellow-46216.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt=""
-                />
-                <p className="font-medium">Sunflower</p>
-              </div>
-              <p className="font-medium mt-2">Category: Indoor Plants</p>
-              <p className="font-medium">Qty: 0</p>
-            </div>
+            ))}
           </div>
-          <div className="mt-5 flex justify-end">
-            <CustomButton>Order Confirm</CustomButton>
+          <div className="mt-5 flex items-center justify-end">
+            <h3 className="font-bold text-xl">${totalPrice.toFixed(2)}</h3>
           </div>
         </div>
       </div>
