@@ -3,7 +3,7 @@
 ForestAtHome is a responsive web application designed for browsing and purchasing nursery plants online. This repository contains the frontend implementation using React, Redux, TypeScript, and styled-components.
 
 - [Live Site](https://forest-at-home-client.vercel.app)
-- [Project Preview Video](https://forest-at-home-client.vercel.app)
+- [Project Preview Video](https://www.loom.com/share/06900dfcad9c41478dd3fe982cfb6485?sid=e645ccfa-774e-4ab9-8f27-5cd027566304)
 
 ## Features
 

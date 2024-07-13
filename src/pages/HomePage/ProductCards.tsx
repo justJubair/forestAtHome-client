@@ -39,7 +39,7 @@ const ProductCards = () => {
         "https://forest-at-home-server.vercel.app/api/v1/productCount"
       );
       const data = await res.json();
-      setCount(data);
+      setCount(data.count);
     };
     fetchData();
   }, []);
