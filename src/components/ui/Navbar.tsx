@@ -1,16 +1,16 @@
-import { Link, NavLink } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
+import { Link } from "react-scroll";
 const Navbar = () => {
   const navLinks = (
     <>
       <li>
         <NavLink
-          to="/"
           className={({ isActive }) =>
             isActive
-              ? "font-bold text-secondary-orange"
-              : "font-bold text-black lg:text-white"
+              ? "text-secondary-orange font-bold"
+              : "text-black font-bold lg:text-white"
           }
+          to="/"
         >
           Home
         </NavLink>
@@ -20,26 +20,36 @@ const Navbar = () => {
           to="/products"
           className={({ isActive }) =>
             isActive
-              ? "font-bold text-secondary-orange"
-              : "font-bold text-black lg:text-white"
+              ? "text-secondary-orange font-bold"
+              : "text-black font-bold lg:text-white"
           }
         >
           Products
         </NavLink>
       </li>
       <li>
-        <NavLink
-          to="/Management"
-          className={({ isActive, isPending }) =>
-            isPending
-              ? "font-bold text-blac lg:text-white"
-              : isActive
-              ? "font-bold text-secondary-orange"
-              : "font-bold text-black lg:text-white"
-          }
+        <Link
+          className="text-black font-bold lg:text-white hover:cursor-pointer"
+          to="category"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration={500}
         >
-          Management
-        </NavLink>
+          Category
+        </Link>
+      </li>
+      <li>
+        <Link
+          className="text-black font-bold lg:text-white hover:cursor-pointer"
+          to="gallery"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration={500}
+        >
+          Gallery
+        </Link>
       </li>
     </>
   );
@@ -80,9 +90,7 @@ const Navbar = () => {
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 flex gap-3 items-center">
-          {navLinks}
-        </ul>
+        <ul className="flex items-center gap-6">{navLinks}</ul>
       </div>
       <div className="navbar-end">
         <div className="flex-none flex items-center">
@@ -118,9 +126,9 @@ const Navbar = () => {
                 <span className="text-lg font-bold">8 Items</span>
                 <span className="text-info">Subtotal: $999</span>
                 <div className="card-actions">
-                  <Link to="/checkout" className="btn btn-primary btn-block">
+                  <NavLink to="/checkout" className="btn btn-primary btn-block">
                     View cart
-                  </Link>
+                  </NavLink>
                 </div>
               </div>
             </div>

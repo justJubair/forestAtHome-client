@@ -1,6 +1,13 @@
 import SectionTitle from "@/components/ui/SectionTitle";
 import Category from "./Category";
-
+import {
+  Link,
+  Button,
+  Element,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+} from "react-scroll";
 const dummyCategories = [
   {
     name: "Indoor Plants",
@@ -22,17 +29,19 @@ const dummyCategories = [
 
 const Categories = () => {
   return (
-    <div>
-      <div className="mt-20 mb-6">
-        <SectionTitle>Our Categories</SectionTitle>
-      </div>
+    <Element name="category">
+      <div>
+        <div className="mt-20 mb-6">
+          <SectionTitle>Our Categories</SectionTitle>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 max-w-6xl mx-auto lg:px-0">
-        {dummyCategories.map((category, idx) => (
-          <Category key={idx} category={category} />
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 max-w-6xl mx-auto lg:px-0">
+          {dummyCategories.map((category, idx) => (
+            <Category key={idx} category={category} />
+          ))}
+        </div>
       </div>
-    </div>
+    </Element>
   );
 };
 export default Categories;

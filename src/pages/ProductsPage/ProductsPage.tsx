@@ -10,8 +10,15 @@ import { TProduct } from "@/types";
 
 const ProductsPage = () => {
   const { toast } = useToast();
-  const { data, isLoading } = useGetProductsQuery(null);
+  const options = {
+    search: "",
+  };
+  const { data, isLoading } = useGetProductsQuery(options);
   const [deleteProduct] = useDeleteProductMutation();
+
+  const products = data?.data?.filter(
+    (product: TProduct) => product.isDeleted === false
+  );
   const handleProductDelete = (_id: string) => {
     console.log("hello pls delete");
     deleteProduct(_id);
@@ -45,7 +52,7 @@ const ProductsPage = () => {
             </thead>
             <tbody>
               {/* row 1 */}
-              {data?.data?.map((product: TProduct) => (
+              {products.map((product: TProduct) => (
                 <tr key={product._id}>
                   <td>
                     <div className="flex items-center gap-3">
