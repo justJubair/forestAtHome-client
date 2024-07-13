@@ -31,7 +31,7 @@ const CheckoutPage = () => {
     const name = form.name.value;
     const phone = form.phone.value;
     const address = form.address.value;
-
+    // if (!name && !phone && !address)
     const newOrder = {
       name,
       phone,
@@ -63,6 +63,7 @@ const CheckoutPage = () => {
               type="text"
               id="name"
               name="name"
+              required
               className="min-w-80 lg:min-w-96 mb-3"
             />
             <Label htmlFor="phone" className="text-right">
@@ -70,6 +71,7 @@ const CheckoutPage = () => {
             </Label>
             <Input
               type="text"
+              required
               id="phone"
               name="phone"
               className="lg:min-w-96 mb-3"
@@ -80,6 +82,7 @@ const CheckoutPage = () => {
             <Input
               type="text"
               id="address"
+              required
               name="address"
               className="lg:min-w-96"
             />

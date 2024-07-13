@@ -77,13 +77,19 @@ const AddProductModal = () => {
                 <Label htmlFor="title" className="text-right">
                   Title
                 </Label>
-                <Input type="text" name="name" className="col-span-3" />
+                <Input
+                  required
+                  type="text"
+                  name="name"
+                  className="col-span-3"
+                />
               </div>
               <div className="space-y-1">
                 <Label htmlFor="price" className="text-right">
                   Price
                 </Label>
                 <Input
+                  required
                   type="number "
                   name="price"
                   id="price"
@@ -97,6 +103,7 @@ const AddProductModal = () => {
                   Quantity
                 </Label>
                 <Input
+                  required
                   type="number"
                   id="quantity"
                   name="quantity"
@@ -132,6 +139,7 @@ const AddProductModal = () => {
                 Description
               </Label>
               <Textarea
+                required
                 name="description"
                 placeholder="Write product description."
               />
@@ -182,6 +190,7 @@ const AddProductModal = () => {
                 Image
               </Label>
               <Input
+                required
                 name="image"
                 id="title"
                 placeholder="Direct Image link"
