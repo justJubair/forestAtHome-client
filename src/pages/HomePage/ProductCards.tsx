@@ -20,19 +20,31 @@ import {
 } from "@/components/ui/pagination";
 import { useGetProductsQuery } from "@/redux/features/product/productApi";
 import { TProduct } from "@/types";
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+// import { useLoaderData } from "react-router-dom";
 
-type TLoaderData = {
-  count: number;
-};
+// type TLoaderData = {
+//   count: number;
+// };
 
 const ProductCards = () => {
   const [search, setSearch] = useState("");
   const [sortValue, setSortValue] = useState("asc");
   const [currentPage, setCurrentPage] = useState(0);
-  const { count } = useLoaderData() as TLoaderData;
+  // const { count } = useLoaderData() as TLoaderData;
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(
+        "https://forest-at-home-server.vercel.app/api/v1/productCount"
+      );
+      const data = await res.json();
+      setCount(data);
+    };
+    fetchData();
+  }, []);
 
+  console.log(count);
   const options = {
     search,
     sort: sortValue,
@@ -120,7 +132,7 @@ const ProductCards = () => {
         </Select>
       </div>
       <div className="grid grid-cols-1 px-4 lg:px-0 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {products.map((product: TProduct) => (
+        {products?.map((product: TProduct) => (
           <ProductCard key={product?._id} product={product} />
         ))}
       </div>

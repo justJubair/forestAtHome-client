@@ -1,30 +1,50 @@
-# React + TypeScript + Vite
+# ForestAtHome
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ForestAtHome is a responsive web application designed for browsing and purchasing nursery plants online. This repository contains the frontend implementation using React, Redux, TypeScript, and styled-components.
 
-Currently, two official plugins are available:
+- [Live Site](https://forest-at-home-client.vercel.app)
+- [Project Preview Video](https://forest-at-home-client.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Product Catalog:** Browse a wide range of nursery plants with detailed descriptions.
+- **Shopping Cart:** Add and remove products from the cart, with real-time updates.
+- **Search and Filter:** Find specific products easily using search and category filters.
+- **Pagination:** Navigate through the product catalog efficiently with pagination.
+- **CRUD Operations:** Admin panel for adding, updating, and deleting products.
+- **Session Persistence:** Warns users on refreshing the page with items in their cart to prevent accidental data loss.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Tech Stack
 
-- Configure the top-level `parserOptions` property like this:
+- **Frontend:** React.js, Redux (state management), TypeScript
+- **Styling:** shadcn/ui
+- **API Integration:** RESTful APIs for product management
+- **Other Libraries:** React Router for navigation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Installation
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+To run ForestAtHome locally, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/justJubair/forestAtHome-client.git`
+2. Navigate to the project directory: `cd forestAtHome-client`
+3. Install dependencies: `npm install`
+4. Start the development server: `npm run dev`
+5. Open `http://localhost:5173` in your browser.
+
+## Usage
+
+- **User Interface:** Explore the product catalog, add items to the cart, and manage your shopping session.
+
+## Contributing
+
+We welcome contributions to ForestAtHome! To contribute:
+
+1. Fork the repository.
+2. Create your feature branch: `git checkout -b feature/NewFeature`
+3. Commit your changes: `git commit -am 'Add a new feature'`
+4. Push to the branch: `git push origin feature/NewFeature`
+5. Submit a pull request.
+
+## Contact
+
+For issues and feedback, please contact Jubair Ahmed at jubair.ahmed2838@gmail.com.

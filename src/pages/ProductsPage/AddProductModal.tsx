@@ -159,7 +159,7 @@ const AddProductModal = () => {
                 Ratings
               </Label>
               <Rating
-                value={0}
+                value={rating}
                 style={{ maxWidth: 120 }}
                 onChange={setRating}
               />

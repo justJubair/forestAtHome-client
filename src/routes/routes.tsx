@@ -13,8 +13,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
-        loader: () =>
-          fetch("https://forest-at-home-server.vercel.app/api/v1/productCount"),
       },
       {
         path: "/products",
