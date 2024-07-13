@@ -12,7 +12,7 @@ const App = () => {
   const { products } = useAppSelector((state) => state.cart);
   const { toast } = useToast();
   useEffect(() => {
-    const handleBeforeUnload = (e) => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (products.length > 0) {
         e.preventDefault();
         toast({

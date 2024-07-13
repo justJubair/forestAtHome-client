@@ -17,3 +17,8 @@ export type TOrder = {
   address: string;
   products: TProduct[];
 };
+
+export type TCategory = {
+  img: string;
+  name: string;
+};

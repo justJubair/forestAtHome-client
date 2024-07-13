@@ -1,4 +1,21 @@
-const Category = ({ category }) => {
+// import { TCategory } from "@/types";
+
+// import { TCategory } from "@/types";
+
+// export type TCategory = {
+//   img: string;
+//   name: string;
+//   category: {
+//     img: string;
+//     name: string;
+//   };
+// };
+export type TCategory = {
+  img: string;
+  name: string;
+};
+
+const Category: React.FC<{ category: TCategory }> = ({ category }) => {
   return (
     <div className="card bg-base-100 image-full h-52 hover:scale-105 hover:shadow-xl duration-150 hover:cursor-pointer">
       <figure>

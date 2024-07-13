@@ -1,13 +1,7 @@
 import SectionTitle from "@/components/ui/SectionTitle";
 import Category from "./Category";
-import {
-  Link,
-  Button,
-  Element,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-} from "react-scroll";
+import { Element } from "react-scroll";
+import { TCategory } from "@/types";
 const dummyCategories = [
   {
     name: "Indoor Plants",
@@ -36,7 +30,7 @@ const Categories = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 max-w-6xl mx-auto lg:px-0">
-          {dummyCategories.map((category, idx) => (
+          {dummyCategories.map((category: TCategory, idx) => (
             <Category key={idx} category={category} />
           ))}
         </div>

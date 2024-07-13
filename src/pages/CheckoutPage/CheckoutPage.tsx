@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useCreateOrderMutation } from "@/redux/features/cart/cartApi";
 import { useAppSelector } from "@/redux/hooks";
+import { TProduct } from "@/types";
 // import { TProduct } from "@/types";
 
 const CheckoutPage = () => {
@@ -14,24 +15,28 @@ const CheckoutPage = () => {
     return accumulator + currentValue.price;
   }, 0);
 
-  const productMap = {};
+  // const productMap = {};
+  const productMap: { [key: string]: TProduct & { buyingQuantity: number } } =
+    {};
 
-  products.forEach((product) => {
-    if (productMap[product._id]) {
-      productMap[product._id].buyingQuantity += 1;
+  products.forEach((product: TProduct) => {
+    if (productMap[product._id as string]) {
+      productMap[product._id as string].buyingQuantity += 1;
     } else {
-      productMap[product._id] = { ...product, buyingQuantity: 1 };
+      productMap[product._id as string] = { ...product, buyingQuantity: 1 };
     }
   });
 
   const uniqueCartProducts = Object.values(productMap);
-  const handleOrder = async (e) => {
+  const handleOrder = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.target;
-    const name = form.name.value;
-    const phone = form.phone.value;
-    const address = form.address.value;
-    // if (!name && !phone && !address)
+    const form = e.target as HTMLFormElement;
+
+    const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+    const phone = (form.elements.namedItem("phone") as HTMLInputElement).value;
+    const address = (form.elements.namedItem("address") as HTMLInputElement)
+      .value;
+
     const newOrder = {
       name,
       phone,

@@ -23,14 +23,16 @@ import { TProduct } from "@/types";
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
+type TLoaderData = {
+  count: number;
+};
+
 const ProductCards = () => {
   const [search, setSearch] = useState("");
   const [sortValue, setSortValue] = useState("asc");
   const [currentPage, setCurrentPage] = useState(0);
-  const { count } = useLoaderData();
-  // console.log(count);
-  // const [page, setPage] = useState(0);
-  // console.log(currentPage);
+  const { count } = useLoaderData() as TLoaderData;
+
   const options = {
     search,
     sort: sortValue,
@@ -45,9 +47,11 @@ const ProductCards = () => {
 
   const numberOfPages = Math.ceil(count / 6);
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const search = e.target.search.value;
+    const form = e.target as HTMLFormElement;
+    const search = (form.elements.namedItem("search") as HTMLInputElement)
+      .value;
     setSearch(search);
   };
 

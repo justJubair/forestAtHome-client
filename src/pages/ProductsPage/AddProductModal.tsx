@@ -24,25 +24,35 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useAddProductMutation } from "@/redux/features/product/productApi";
 import { useState } from "react";
-import Rating from "react-rating";
-
+// import Rating from "react-rating";
+import "@smastrom/react-rating/style.css";
+import { Rating } from "@smastrom/react-rating";
 const AddProductModal = () => {
   const [rating, setRating] = useState(0);
   const [category, setCategory] = useState("");
   const [addProduct] = useAddProductMutation();
   const { toast } = useToast();
-  const handleProductAdd = async (e) => {
+  const handleProductAdd = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.target;
-    const title = form.name.value;
-    const price = form.price.value;
-    const quantity = form.quantity.value;
-    const description = form.description.value;
-    const image = form.image.value;
+
+    const form = e.target as HTMLFormElement;
+    const title = (form.elements.namedItem("name") as HTMLInputElement).value;
+    const price = (form.elements.namedItem("price") as HTMLInputElement).value;
+    const quantity = (form.elements.namedItem("quantity") as HTMLInputElement)
+      .value;
+    const description = (
+      form.elements.namedItem("description") as HTMLInputElement
+    ).value;
+    const image = (form.elements.namedItem("image") as HTMLInputElement).value;
+    // const title = form.name.value;
+    // const price = form.price.value;
+    // const quantity = form.quantity.value;
+    // const description = form.description.value;
+    // const image = form.image.value;
     const newProduct = {
       title,
-      price,
-      quantity,
+      price: Number(price),
+      quantity: Number(quantity),
       description,
       image,
       rating,
@@ -149,40 +159,9 @@ const AddProductModal = () => {
                 Ratings
               </Label>
               <Rating
-                onClick={(value) => setRating(value)}
-                emptySymbol={
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
-                    />
-                  </svg>
-                }
-                fullSymbol={
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="#487151"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
-                    />
-                  </svg>
-                }
-                fractions={2}
+                value={0}
+                style={{ maxWidth: 120 }}
+                onChange={setRating}
               />
             </div>
             <div className="space-y-1">
