@@ -4,9 +4,9 @@ import { TProduct } from "@/types";
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: () => {
+      query: (options) => {
         return {
-          url: "/product",
+          url: `/product?search=${options.search}&sort=${options.sort}&page=${options.page}&limit=${options.limit}`,
           method: "GET",
         };
       },

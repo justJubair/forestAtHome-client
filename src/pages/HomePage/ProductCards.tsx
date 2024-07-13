@@ -13,7 +13,6 @@ import {
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -21,9 +20,48 @@ import {
 } from "@/components/ui/pagination";
 import { useGetProductsQuery } from "@/redux/features/product/productApi";
 import { TProduct } from "@/types";
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 
 const ProductCards = () => {
-  const { data, isLoading } = useGetProductsQuery(null);
+  const [search, setSearch] = useState("");
+  const [sortValue, setSortValue] = useState("asc");
+  const [currentPage, setCurrentPage] = useState(0);
+  const { count } = useLoaderData();
+  // console.log(count);
+  // const [page, setPage] = useState(0);
+  // console.log(currentPage);
+  const options = {
+    search,
+    sort: sortValue,
+    page: currentPage,
+    limit: 6,
+  };
+
+  const { data, isLoading } = useGetProductsQuery(options);
+  const products = data?.data?.filter(
+    (product: TProduct) => product.isDeleted === false
+  );
+
+  const numberOfPages = Math.ceil(count / 6);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const search = e.target.search.value;
+    setSearch(search);
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < numberOfPages - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -39,46 +77,72 @@ const ProductCards = () => {
         <SectionTitle>Our Handpicked</SectionTitle>
       </div>
       <div className="mb-6 flex justify-between items-center">
-        <Input type="text" placeholder="Search Products" className="max-w-96" />
-        <Select>
+        <form onSubmit={handleSearch} className="relative">
+          <Input
+            type="text"
+            placeholder="Search Products"
+            className="min-w-80"
+            name="search"
+          />
+          <button type="submit" className="absolute top-[10px] right-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-5  duration-200 hover:cursor-pointer hover:text-primary-green hover:scale-110"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+              />
+            </svg>
+          </button>
+        </form>
+
+        <Select onValueChange={(value) => setSortValue(value)}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Filter by Price" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Sort by price</SelectLabel>
-              <SelectItem value="highest">Highest</SelectItem>
-              <SelectItem value="lowest">Lowest</SelectItem>
+              <SelectItem value="desc">Highest</SelectItem>
+              <SelectItem value="asc">Lowest</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
       </div>
       <div className="grid grid-cols-1 px-4 lg:px-0 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {data?.data?.slice(0, 6).map((product: TProduct) => (
+        {products.map((product: TProduct) => (
           <ProductCard key={product?._id} product={product} />
         ))}
       </div>
       <Pagination className="mt-10">
         <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href="#" />
+          <PaginationItem className="hover:cursor-pointer">
+            <PaginationPrevious onClick={handlePrev} />
           </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#" isActive>
-              2
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext href="#" />
+
+          {[...Array(numberOfPages).keys()].map((page, idx) => (
+            <PaginationItem
+              key={idx}
+              className={`${
+                currentPage === page
+                  ? "bg-primary-green rounded-xl text-white"
+                  : ""
+              } hover:cursor-pointer`}
+            >
+              <PaginationLink onClick={() => setCurrentPage(page)}>
+                {page + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+
+          <PaginationItem className="hover:cursor-pointer">
+            <PaginationNext onClick={handleNext} />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
